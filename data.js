@@ -159,6 +159,9 @@ const rulemakingsData = [
                 "status": "not-started"
         }
 },
+        "paradigmPriority": true,
+        "priorityReason": "Currently open for comment (deadline May 1, 2026). Comprehensive OCC NPRM establishing new 12 CFR 15 for national bank stablecoin issuance — key opportunity to shape federal framework.",
+        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": ""
     },
