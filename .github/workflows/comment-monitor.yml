@@ -1,0 +1,337 @@
+name: Comment Monitor
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '30 0,6,12,18 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-comments:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for new comments on tracked dockets
+        env:
+          REGULATIONS_GOV_API_KEY: ${{ secrets.REGULATIONS_GOV_API_KEY }}
+        run: |
+          cat << 'SCRIPT' > check-comments.js
+          const fs = require('fs');
+          const https = require('https');
+
+          // ── Config ──────────────────────────────────────────────
+          const TRACKED_DOCKETS = [
+            { docketId: 'OCC-2025-0372', agency: 'OCC', type: 'regulations.gov' },
+            { docketId: 'NCUA-2025-1335', agency: 'NCUA', type: 'regulations.gov' }
+          ];
+
+          const FDIC_COMMENTS_URL = 'https://www.fdic.gov/federal-register-publications/comments-rin-3064-ag20-december-19-2025';
+          const API_KEY = process.env.REGULATIONS_GOV_API_KEY || '';
+          const SEEN_FILE = 'seen-comments.json';
+          const DATA_FILE = 'data.js';
+
+          // ── HTTP helper ─────────────────────────────────────────
+          function fetchUrl(url, headers = {}) {
+            return new Promise((resolve, reject) => {
+              const defaultHeaders = { 'User-Agent': 'GENIUS-Act-Tracker/1.0', ...headers };
+              const urlObj = new URL(url);
+              const options = {
+                hostname: urlObj.hostname,
+                path: urlObj.pathname + urlObj.search,
+                headers: defaultHeaders
+              };
+              https.get(options, (res) => {
+                if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+                  return fetchUrl(res.headers.location, headers).then(resolve).catch(reject);
+                }
+                if (res.statusCode !== 200) {
+                  return reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+                }
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => resolve(data));
+                res.on('error', reject);
+              }).on('error', reject);
+            });
+          }
+
+          // ── Regulations.gov API ─────────────────────────────────
+          async function fetchRegulationsGovComments(docketId) {
+            if (!API_KEY) {
+              console.log(`  Skipping ${docketId} — no REGULATIONS_GOV_API_KEY set`);
+              return [];
+            }
+
+            const baseUrl = 'https://api.regulations.gov/v4/comments';
+            const params = new URLSearchParams({
+              'filter[docketId]': docketId,
+              'sort': '-postedDate',
+              'page[size]': '250'
+            });
+
+            const url = `${baseUrl}?${params.toString()}`;
+            console.log(`  Fetching comments for ${docketId}...`);
+
+            try {
+              const raw = await fetchUrl(url, { 'X-Api-Key': API_KEY });
+              const resp = JSON.parse(raw);
+              const comments = (resp.data || []).map(c => {
+                const attrs = c.attributes || {};
+                return {
+                  commentId: c.id,
+                  commenter: attrs.title || 'Anonymous',
+                  postedDate: attrs.postedDate ? attrs.postedDate.split('T')[0] : 'Unknown',
+                  agency: docketId.split('-')[0],
+                  docketId: docketId,
+                  url: `https://www.regulations.gov/comment/${c.id}`,
+                  excerpt: (attrs.comment || '').substring(0, 300)
+                };
+              });
+              console.log(`  Found ${comments.length} comments on ${docketId}`);
+              return comments;
+            } catch (e) {
+              console.error(`  Error fetching ${docketId}: ${e.message}`);
+              return [];
+            }
+          }
+
+          // ── FDIC comments page scraper ──────────────────────────
+          async function fetchFDICComments() {
+            console.log('  Fetching FDIC comments page...');
+            try {
+              const html = await fetchUrl(FDIC_COMMENTS_URL);
+
+              // Extract PDF links from the FDIC comments page
+              const comments = [];
+              // Match links to comment PDFs — pattern: <a href="/path/to/comment.pdf">Commenter Name</a>
+              const linkRegex = /<a[^>]+href=["']([^"']*\.pdf)["'][^>]*>([^<]+)<\/a>/gi;
+              let match;
+              while ((match = linkRegex.exec(html)) !== null) {
+                const pdfPath = match[1];
+                const commenterText = match[2].trim();
+
+                // Skip non-comment PDFs (e.g. the NPRM itself)
+                if (commenterText.toLowerCase().includes('federal register') ||
+                    commenterText.toLowerCase().includes('nprm')) continue;
+
+                const pdfUrl = pdfPath.startsWith('http') ? pdfPath : `https://www.fdic.gov${pdfPath}`;
+                comments.push({
+                  commentId: `FDIC-${pdfPath.split('/').pop().replace('.pdf', '')}`,
+                  commenter: commenterText,
+                  pdfUrl: pdfUrl,
+                  agency: 'FDIC',
+                  docketId: 'RIN-3064-AG20'
+                });
+              }
+              console.log(`  Found ${comments.length} FDIC comment PDFs`);
+              return comments;
+            } catch (e) {
+              console.error(`  Error fetching FDIC comments: ${e.message}`);
+              return [];
+            }
+          }
+
+          // ── Detect new comments ─────────────────────────────────
+          function loadSeenComments() {
+            try {
+              return JSON.parse(fs.readFileSync(SEEN_FILE, 'utf8'));
+            } catch {
+              return { seenCommentIds: [], lastChecked: null, commentCounts: {} };
+            }
+          }
+
+          function saveSeenComments(data) {
+            fs.writeFileSync(SEEN_FILE, JSON.stringify(data, null, 2));
+          }
+
+          // ── Extract current comment IDs from data.js ────────────
+          function getCurrentCommentIds() {
+            const dataJs = fs.readFileSync(DATA_FILE, 'utf8');
+            const ids = new Set();
+
+            // Match commentId fields
+            const commentIdRegex = /"commentId"\s*:\s*"([^"]+)"/g;
+            let m;
+            while ((m = commentIdRegex.exec(dataJs)) !== null) {
+              ids.add(m[1]);
+            }
+
+            // Match pdfUrl fields for FDIC (which don't have commentId)
+            const pdfUrlRegex = /"pdfUrl"\s*:\s*"([^"]+)"/g;
+            while ((m = pdfUrlRegex.exec(dataJs)) !== null) {
+              ids.add(m[1]);
+            }
+
+            return ids;
+          }
+
+          // ── Main ────────────────────────────────────────────────
+          async function main() {
+            console.log('=== Comment Monitor ===');
+            console.log(`Time: ${new Date().toISOString()}`);
+            console.log(`API Key: ${API_KEY ? 'present' : 'MISSING'}\n`);
+
+            const seenData = loadSeenComments();
+            const knownIds = getCurrentCommentIds();
+            console.log(`Known comments in data.js: ${knownIds.size}`);
+            console.log(`Previously seen comments: ${seenData.seenCommentIds.length}\n`);
+
+            // Combine known + seen for dedup
+            const allSeen = new Set([...knownIds, ...seenData.seenCommentIds]);
+
+            let allNewComments = [];
+
+            // Check regulations.gov dockets
+            for (const docket of TRACKED_DOCKETS) {
+              const comments = await fetchRegulationsGovComments(docket.docketId);
+              const newOnes = comments.filter(c => !allSeen.has(c.commentId));
+              if (newOnes.length > 0) {
+                console.log(`\n  ** ${newOnes.length} NEW comments on ${docket.docketId}:`);
+                newOnes.forEach(c => console.log(`     - ${c.commenter} (${c.commentId})`));
+              }
+              allNewComments.push(...newOnes);
+
+              // Update count tracking
+              seenData.commentCounts[docket.docketId] = {
+                total: comments.length,
+                checkedAt: new Date().toISOString()
+              };
+            }
+
+            // Check FDIC
+            const fdicComments = await fetchFDICComments();
+            const newFdic = fdicComments.filter(c => !allSeen.has(c.pdfUrl) && !allSeen.has(c.commentId));
+            if (newFdic.length > 0) {
+              console.log(`\n  ** ${newFdic.length} NEW FDIC comments:`);
+              newFdic.forEach(c => console.log(`     - ${c.commenter}`));
+            }
+            allNewComments.push(...newFdic);
+
+            seenData.commentCounts['FDIC-RIN-3064-AG20'] = {
+              total: fdicComments.length,
+              checkedAt: new Date().toISOString()
+            };
+
+            // Update seen list
+            for (const c of allNewComments) {
+              seenData.seenCommentIds.push(c.commentId || c.pdfUrl);
+            }
+            seenData.lastChecked = new Date().toISOString();
+            saveSeenComments(seenData);
+
+            console.log(`\n=== Summary ===`);
+            console.log(`Total new comments found: ${allNewComments.length}`);
+
+            if (allNewComments.length > 0) {
+              fs.writeFileSync('new-comments.json', JSON.stringify(allNewComments, null, 2));
+              fs.writeFileSync('has-new-comments.txt', 'true');
+
+              // Build a summary for notifications
+              let summary = '';
+              for (const docket of TRACKED_DOCKETS) {
+                const docketNew = allNewComments.filter(c => c.docketId === docket.docketId);
+                if (docketNew.length > 0) {
+                  summary += `${docket.agency} (${docket.docketId}): ${docketNew.length} new comment(s)\n`;
+                  docketNew.forEach(c => summary += `  - ${c.commenter}: ${c.url}\n`);
+                }
+              }
+              const fdicNew = allNewComments.filter(c => c.agency === 'FDIC');
+              if (fdicNew.length > 0) {
+                summary += `FDIC (RIN 3064-AG20): ${fdicNew.length} new comment(s)\n`;
+                fdicNew.forEach(c => summary += `  - ${c.commenter}: ${c.pdfUrl}\n`);
+              }
+
+              fs.writeFileSync('comment-summary.txt', summary);
+              console.log('\nNew comments:\n' + summary);
+            } else {
+              console.log('No new comments found.');
+            }
+          }
+
+          main().catch(e => { console.error('Fatal error:', e); process.exit(1); });
+          SCRIPT
+
+          node check-comments.js
+          rm check-comments.js
+
+      - name: Check for new comments
+        id: comments
+        run: |
+          if [ -f has-new-comments.txt ]; then
+            echo "has_new_comments=true" >> $GITHUB_OUTPUT
+            rm has-new-comments.txt
+          else
+            echo "has_new_comments=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit seen-comments tracking
+        if: always()
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add seen-comments.json || true
+          git diff --cached --quiet || git commit -m "Auto-update: Refresh comment tracking data"
+          git push || true
+
+      - name: Create GitHub Issue for new comments
+        if: steps.comments.outputs.has_new_comments == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SUMMARY=$(cat comment-summary.txt)
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+
+          gh issue create \
+            --title "New public comments detected — $TIMESTAMP" \
+            --body "$(cat <<EOF
+          ## New Comments Found
+
+          The automated comment monitor detected new public comments on tracked GENIUS Act dockets.
+
+          ### Details
+          \`\`\`
+          $SUMMARY
+          \`\`\`
+
+          ### Action needed
+          - [ ] Review the new comments
+          - [ ] Update \`data.js\` with comment summaries
+          - [ ] Push changes to update the tracker
+
+          ### Raw data
+          <details>
+          <summary>New comments JSON</summary>
+
+          \`\`\`json
+          $(cat new-comments.json)
+          \`\`\`
+          </details>
+
+          ---
+          *Auto-generated by comment-monitor workflow*
+          EOF
+          )" \
+            --label "new-comments" || echo "Note: Could not create issue (label may not exist yet)"
+
+          rm -f new-comments.json comment-summary.txt
+
+      - name: Send Slack notification
+        if: steps.comments.outputs.has_new_comments == 'true' && env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          SUMMARY=$(cat comment-summary.txt 2>/dev/null || echo "New comments detected")
+          PAYLOAD=$(cat <<EOF
+          {"text": "📬 *New GENIUS Act public comments detected:*\n\n\`\`\`$SUMMARY\`\`\`\n\n<https://github.com/${{ github.repository }}/issues|View issues>"}
+          EOF
+          )
+          curl -X POST -H 'Content-type: application/json' -d "$PAYLOAD" "$SLACK_WEBHOOK_URL" || true
+          rm -f comment-summary.txt new-comments.json
