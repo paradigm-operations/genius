@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENIUS Act Tracker | Paradigm</title>
+    <title>GENIUS Act Rulemaking Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,9 +135,6 @@
         <section class="filters-section">
             <div class="section-label">FILTER RULEMAKINGS <span class="arrow">→</span></div>
             <div class="quick-filters">
-                <button class="quick-filter-btn priority" id="priorityBtn" onclick="filterPriority()">
-                    <span class="quick-filter-icon">⭐</span> Paradigm Priority
-                </button>
                 <button class="quick-filter-btn" id="openCommentBtn" onclick="filterOpenForComment()">
                     <span class="quick-filter-icon">💬</span> Open for Comment
                 </button>
@@ -205,10 +202,6 @@
                 <div class="legend-title">KEY</div>
                 <div class="legend-items">
                     <div class="legend-item">
-                        <span class="priority-badge">⭐ Priority</span>
-                        <span class="legend-description">Rulemakings where Paradigm's input could be particularly impactful based on our policy priorities (AML innovation, tailored capital requirements, technology neutrality, and efficient approval processes)</span>
-                    </div>
-                    <div class="legend-item">
                         <span class="rulemaking-type-badge required">Required</span>
                         <span class="legend-description">Rulemakings that are mandated by the statute using "shall" language with specific deadlines. Agencies are legally required to issue these rules.</span>
                     </div>
@@ -237,7 +230,6 @@
 
     <script src="data.js"></script>
     <script src="fetched-data.js"></script>
-    <script src="paradigm-policy.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

@@ -22,9 +22,6 @@ const rulemakingsData = [
             "effective": { "status": "not-started" }
         },
         "rulemakingType": "required",
-        "paradigmPriority": true,
-        "priorityReason": "Foundational rulemaking that will define key terms and set the tone for the entire regulatory framework",
-        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": ""
     },
@@ -37,9 +34,6 @@ const rulemakingsData = [
         "notes": "Requirements must be tailored to business model and risk profile, cannot exceed requirements sufficient to ensure ongoing operations. OCC addressed in NPRM (Feb 25, 2026) via 12 CFR 3 amendments. FDIC and NCUA have also issued separate NPRMs.",
         "deadlineDate": "2026-07-18",
         "rulemakingType": "required",
-        "paradigmPriority": true,
-        "priorityReason": "Critical to ensure capital requirements are appropriately tailored and don't stifle innovation",
-        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": ""
     },
@@ -108,9 +102,6 @@ const rulemakingsData = [
             "effective": { "status": "not-started" }
         },
         "rulemakingType": "required",
-        "paradigmPriority": true,
-        "priorityReason": "Opportunity to advocate for crypto-native AML tools rather than traditional banking compliance frameworks",
-        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": ""
     },
@@ -161,9 +152,6 @@ const rulemakingsData = [
                 "status": "not-started"
         }
 },
-        "paradigmPriority": true,
-        "priorityReason": "Currently open for comment (deadline May 1, 2026). Comprehensive OCC NPRM establishing new 12 CFR 15 for national bank stablecoin issuance — key opportunity to shape federal framework.",
-        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": "",
         "submittedComments": [
@@ -278,9 +266,6 @@ const rulemakingsData = [
             "effective": { "status": "not-started" }
         },
         "rulemakingType": "required",
-        "paradigmPriority": true,
-        "priorityReason": "Currently open for comment (extended deadline May 18, 2026). Key opportunity to shape bank stablecoin issuance approval process",
-        "paradigmRecommendation": "monitor",
         "paradigmCommentary": "",
         "paradigmAttitude": "",
         "submittedComments": [
@@ -385,9 +370,6 @@ const rulemakingsData = [
             "effective": { "status": "not-started" }
         },
         "rulemakingType": "required",
-        "paradigmPriority": true,
-        "priorityReason": "Currently open for comment (deadline April 13, 2026). Opportunity to shape credit union stablecoin issuance framework.",
-        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": "",
         "submittedComments": [
@@ -467,9 +449,6 @@ const rulemakingsData = [
         "deadlineDate": "2028-07-18",
         "docketId": "FINCEN-2025-0003",
         "rulemakingType": "required",
-        "paradigmPriority": true,
-        "priorityReason": "Core priority area - opportunity to shape how crypto-native tools are used for AML compliance rather than traditional banking frameworks",
-        "paradigmRecommendation": "participate",
         "paradigmCommentary": "",
         "paradigmAttitude": ""
     },
@@ -482,9 +461,6 @@ const rulemakingsData = [
         "notes": "Optional - 'may' prescribe standards, not mandatory",
         "deadlineDate": "2027-01-18",
         "rulemakingType": "discretionary",
-        "paradigmPriority": true,
-        "priorityReason": "Critical to ensure technology-neutral standards that don't favor specific blockchains or become prematurely outdated",
-        "paradigmRecommendation": "monitor",
         "paradigmCommentary": "",
         "paradigmAttitude": ""
     },
