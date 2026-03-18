@@ -1,20 +1,21 @@
 {
   "seenCommentIds": [
-    "OCC-2025-0372-0025"
+    "OCC-2025-0372-0025",
+    "OCC-2025-0372-0026"
   ],
-  "lastChecked": "2026-03-17T19:34:22.250Z",
+  "lastChecked": "2026-03-18T03:25:56.733Z",
   "commentCounts": {
     "OCC-2025-0372": {
-      "total": 22,
-      "checkedAt": "2026-03-17T19:34:21.316Z"
+      "total": 23,
+      "checkedAt": "2026-03-18T03:25:56.104Z"
     },
     "NCUA-2025-1335": {
       "total": 1,
-      "checkedAt": "2026-03-17T19:34:21.737Z"
+      "checkedAt": "2026-03-18T03:25:56.581Z"
     },
     "FDIC-RIN-3064-AG20": {
       "total": 12,
-      "checkedAt": "2026-03-17T19:34:22.250Z"
+      "checkedAt": "2026-03-18T03:25:56.733Z"
     }
   }
 }
