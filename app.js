@@ -15,16 +15,6 @@ function toggleSection(sectionId) {
 let priorityFilterActive = false;
 
 // Quick filter functions
-function filterPriority() {
-    priorityFilterActive = !priorityFilterActive;
-    const priorityBtn = document.getElementById('priorityBtn');
-    if (priorityFilterActive) {
-        priorityBtn.classList.add('active');
-    } else {
-        priorityBtn.classList.remove('active');
-    }
-    filterAndSort();
-}
 
 function filterOpenForComment() {
     document.getElementById('publicationFilter').value = 'open-comment';
@@ -623,101 +613,6 @@ function renderCommentSection(item) {
 }
 
 // Render Paradigm commentary based on policy positions
-function renderParadigmCommentary(item) {
-    // Check if getParadigmPosition is available (from paradigm-policy.js)
-    if (typeof getParadigmPosition === 'undefined') {
-        return `
-            <div class="paradigm-commentary">
-                <h4>
-                    <span class="paradigm-icon">P</span>
-                    Paradigm Commentary
-                </h4>
-                <div class="commentary-content">
-                    <p class="commentary-placeholder">Loading policy positions...</p>
-                </div>
-            </div>
-        `;
-    }
-
-    const position = getParadigmPosition(item);
-
-    // Build recommendation indicator if this is a priority rulemaking
-    let recommendationHtml = '';
-    if (item.paradigmPriority && item.paradigmRecommendation) {
-        const recConfig = {
-            'participate': {
-                label: 'Participate Directly',
-                description: 'Paradigm should submit comments directly to the agency',
-                icon: '✍️',
-                className: 'participate'
-            },
-            'monitor': {
-                label: 'Monitor via Trade Association',
-                description: 'Track through industry groups rather than commenting directly',
-                icon: '👀',
-                className: 'monitor'
-            },
-            'dont-care': {
-                label: 'Low Priority',
-                description: 'No significant impact expected; no action needed',
-                icon: '—',
-                className: 'dont-care'
-            }
-        };
-        const config = recConfig[item.paradigmRecommendation] || recConfig['dont-care'];
-        recommendationHtml = `
-            <div class="paradigm-recommendation ${config.className}">
-                <div class="recommendation-header">
-                    <span class="recommendation-icon">${config.icon}</span>
-                    <span class="recommendation-label">${config.label}</span>
-                </div>
-                <p class="recommendation-description">${config.description}</p>
-            </div>
-        `;
-    }
-
-    // Build key points HTML if available
-    const keyPointsHtml = position.keyPoints && position.keyPoints.length > 0 ?
-        `<ul class="policy-key-points">
-            ${position.keyPoints.map(point => `<li>${point}</li>`).join('')}
-        </ul>` : '';
-
-    // Build blog posts HTML with links
-    const blogPostsHtml = position.blogPosts && position.blogPosts.length > 0 ?
-        `<div class="policy-blog-posts">
-            <span class="blog-posts-label">Related Reading:</span>
-            <ul class="blog-posts-list">
-                ${position.blogPosts.slice(0, 3).map(post =>
-                    `<li><a href="${post.url}" target="_blank" onclick="event.stopPropagation();">${post.title}</a></li>`
-                ).join('')}
-            </ul>
-        </div>` : '';
-
-    // Build topics tags
-    const topicsHtml = position.topics && position.topics.length > 0 ?
-        `<div class="policy-topics">
-            ${position.topics.map(topic => `<span class="topic-tag">${formatTopicName(topic)}</span>`).join('')}
-        </div>` : '';
-
-    return `
-        <div class="paradigm-commentary">
-            <h4>
-                <img src="paradigm_logo_k_on-white_rgb.png" alt="Paradigm" class="paradigm-icon-img">
-                Paradigm Policy Position
-            </h4>
-            ${recommendationHtml}
-            <div class="commentary-content">
-                <p>${position.commentary}</p>
-                ${keyPointsHtml}
-                ${topicsHtml}
-                <div class="attitude-indicator ${position.attitude}">
-                    Paradigm Position: ${position.attitude.charAt(0).toUpperCase() + position.attitude.slice(1)}
-                </div>
-                ${blogPostsHtml}
-            </div>
-        </div>
-    `;
-}
 
 // Format topic names for display
 function formatTopicName(topic) {
@@ -1244,8 +1139,6 @@ function renderRulemakings() {
                 ${renderRulemakingStages(item)}
 
                 ${renderCommentSection(item)}
-
-                ${renderParadigmCommentary(item)}
             </div>
         </div>
     `}).join('');
