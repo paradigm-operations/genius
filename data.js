@@ -381,7 +381,15 @@ const rulemakingsData = [
                 "date": "2026-02-12",
                 "commentId": "NCUA-2025-1335-0002",
                 "url": "https://www.regulations.gov/comment/NCUA-2025-1335-0002",
-                "summary": "Submitted detailed comments on the proposed rule for credit union stablecoin issuance. (5 comments received by NCUA; 1 publicly posted as of March 6, 2026.)"
+                "summary": "Submitted detailed comments on the proposed rule for credit union stablecoin issuance."
+            },
+            {
+                "commenter": "Empty Set LLC",
+                "type": "Company",
+                "date": "2026-03-11",
+                "commentId": "NCUA-2025-1335-0003",
+                "url": "https://www.regulations.gov/comment/NCUA-2025-1335-0003",
+                "summary": "Substantive comments submitted as attachment on the proposed credit union stablecoin issuance rules."
             }
         ]
     },
