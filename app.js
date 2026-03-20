@@ -320,7 +320,8 @@ function renderSubmittedComments(comments, commentsPageUrl) {
     if (!comments || comments.length === 0) return '';
     const sectionId = 'comments-section-' + (_commentSectionId++);
 
-    const commentsHtml = comments.map(comment => {
+    const sorted = [...comments].sort((a, b) => a.commenter.localeCompare(b.commenter));
+    const commentsHtml = sorted.map(comment => {
         const dateFormatted = new Date(comment.date).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
