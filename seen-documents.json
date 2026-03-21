@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-03-19T09:00:00.566Z",
+  "lastChecked": "2026-03-21T08:49:10.632Z",
   "seenDocuments": [
     {
       "document_number": "2025-23510",
@@ -364,6 +364,16 @@
       "url": "https://www.federalregister.gov/documents/2026/03/19/2026-05401/publication-or-submission-of-quotations-without-specified-information",
       "source": "Federal Register",
       "first_seen": "2026-03-19"
+    },
+    {
+      "document_number": "2026-05635",
+      "title": "Application of the Federal Securities Laws to Certain Types of Crypto Assets and Certain Transactions Involving Crypto Assets",
+      "type": "Rule",
+      "agency": "Commodity Futures Trading Commission",
+      "publication_date": "2026-03-23",
+      "url": "https://www.federalregister.gov/documents/2026/03/23/2026-05635/application-of-the-federal-securities-laws-to-certain-types-of-crypto-assets-and-certain",
+      "source": "Federal Register",
+      "first_seen": "2026-03-21"
     }
   ],
   "searchTerms": [
