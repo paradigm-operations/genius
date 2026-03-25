@@ -364,6 +364,8 @@ const rulemakingsData = [
                 "url": "https://www.regulations.gov/comment/NCUA-2025-1335-0003",
                 "summary": "Substantive comments submitted as attachment on the proposed credit union stablecoin issuance rules."
             }
+        ,
+            {"commenter":"Comment from Global Legal Entity Identifier Foundation (GLEIF)","type":"Unknown","date":"2026-03-25","commentId":"NCUA-2025-1335-0006","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0006","summary":"New comment — summary pending review."}
         ]
     },
 {
