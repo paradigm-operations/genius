@@ -139,6 +139,8 @@ const rulemakingsData = [
         ,
             {"commenter":"Senmonni, LLC","type":"Unknown","date":"2026-03-30","commentId":"OCC-2025-0372-0035","url":"https://www.regulations.gov/comment/OCC-2025-0372-0035","summary":"New comment — summary pending review."},
             {"commenter":"B2BTechnique","type":"Unknown","date":"2026-03-30","commentId":"OCC-2025-0372-0034","url":"https://www.regulations.gov/comment/OCC-2025-0372-0034","summary":"New comment — summary pending review."}
+        ,
+            {"commenter":"Courtney Lynn Atwood","type":"Unknown","date":"2026-04-01","commentId":"OCC-2025-0372-0040","url":"https://www.regulations.gov/comment/OCC-2025-0372-0040","summary":"New comment — summary pending review."}
         ]
     },
 {
@@ -374,6 +376,10 @@ const rulemakingsData = [
             }
         ,
             {"commenter":"Comment from Global Legal Entity Identifier Foundation (GLEIF)","type":"Unknown","date":"2026-03-25","commentId":"NCUA-2025-1335-0006","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0006","summary":"New comment — summary pending review."}
+        ,
+            {"commenter":"Comment from Jason, Bell","type":"Unknown","date":"2026-04-01","commentId":"NCUA-2025-1335-0008","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0008","summary":"New comment — summary pending review."},
+            {"commenter":"Comment from The Endangered Small Credit Union Defense","type":"Unknown","date":"2026-04-01","commentId":"NCUA-2025-1335-0007","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0007","summary":"New comment — summary pending review."},
+            {"commenter":"Comment from The Carolinas Credit Union League","type":"Unknown","date":"2026-04-01","commentId":"NCUA-2025-1335-0009","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0009","summary":"New comment — summary pending review."}
         ]
     },
 {
