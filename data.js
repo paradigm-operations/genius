@@ -151,6 +151,7 @@ const rulemakingsData = [
         "deadlineDate": "2027-01-18",
         "docketId": "TREAS-DO-2025-0037",
         "commentDeadline": "2026-06-01",
+        "commentUrl": "https://home.treasury.gov/news/press-releases/sb0428",
         "commentsPageUrl": "https://www.regulations.gov/docket/TREAS-DO-2025-0037/comments",
         "rulemakingStages": {
             "anprm": { "status": "closed", "date": "2025-09-03", "commentEndDate": "2025-11-04", "frDocNumber": "2025-19800" },
