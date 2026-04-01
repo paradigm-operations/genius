@@ -147,13 +147,15 @@ const rulemakingsData = [
         "agency": "Secretary of the Treasury",
         "deadline": "Not specified - through notice and comment rulemaking",
         "implementation": "18 months after enactment OR 120 days after final regs issued (whichever is earlier)",
-        "notes": "",
+        "notes": "Treasury issued NPRM on April 1, 2026 establishing principles for determining state-level regime substantial similarity. 60-day comment period.",
         "deadlineDate": "2027-01-18",
         "docketId": "TREAS-DO-2025-0037",
+        "commentDeadline": "2026-06-01",
+        "commentsPageUrl": "https://www.regulations.gov/docket/TREAS-DO-2025-0037/comments",
         "rulemakingStages": {
             "anprm": { "status": "closed", "date": "2025-09-03", "commentEndDate": "2025-11-04", "frDocNumber": "2025-19800" },
-            "nprm": { "status": "not-started" },
-            "commentPeriod": { "status": "not-started" },
+            "nprm": { "status": "published", "date": "2026-04-01", "title": "GENIUS Act: Principles for Determining State Payment Stablecoin Regulatory Regime Substantial Similarity" },
+            "commentPeriod": { "status": "open", "startDate": "2026-04-01", "endDate": "2026-06-01" },
             "finalRule": { "status": "not-started" },
             "effective": { "status": "not-started" }
         },
