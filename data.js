@@ -362,6 +362,9 @@ const rulemakingsData = [
             {"commenter":"Denali Protocol","type":"Unknown","date":"2026-05-05","commentId":"OCC-2025-0372-0329","url":"https://www.regulations.gov/comment/OCC-2025-0372-0329","summary":"New comment — summary pending review."}
         ,
             {"commenter":"Charity & Security Network","type":"Unknown","date":"2026-05-05","commentId":"OCC-2025-0372-0340","url":"https://www.regulations.gov/comment/OCC-2025-0372-0340","summary":"New comment — summary pending review."}
+        ,
+            {"commenter":"PTG Markets","type":"Unknown","date":"2026-05-08","commentId":"OCC-2025-0372-0341","url":"https://www.regulations.gov/comment/OCC-2025-0372-0341","summary":"New comment — summary pending review."},
+            {"commenter":"Haycen Limited","type":"Unknown","date":"2026-05-08","commentId":"OCC-2025-0372-0342","url":"https://www.regulations.gov/comment/OCC-2025-0372-0342","summary":"New comment — summary pending review."}
         ]
     },
 {
