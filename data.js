@@ -367,6 +367,8 @@ const rulemakingsData = [
             {"commenter":"Haycen Limited","type":"Unknown","date":"2026-05-08","commentId":"OCC-2025-0372-0342","url":"https://www.regulations.gov/comment/OCC-2025-0372-0342","summary":"New comment — summary pending review."}
         ,
             {"commenter":"INTRUST Bank","type":"Unknown","date":"2026-05-08","commentId":"OCC-2025-0372-0343","url":"https://www.regulations.gov/comment/OCC-2025-0372-0343","summary":"New comment — summary pending review."}
+        ,
+            {"commenter":"David Martin","type":"Unknown","date":"2026-05-11","commentId":"OCC-2025-0372-0344","url":"https://www.regulations.gov/comment/OCC-2025-0372-0344","summary":"New comment — summary pending review."}
         ]
     },
 {
