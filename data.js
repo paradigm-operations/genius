@@ -692,6 +692,8 @@ const rulemakingsData = [
             {"commenter":"XBRL US, Campbell Pryde","type":"Unknown","date":"Unknown","pdfUrl":"https://www.fdic.gov/federal-register-publications/xbrl-us-campbell-pryde-rin-3064-ag20.pdf","summary":"New comment — summary pending review."}
         ,
             {"commenter":"E. Lawrence Anderson","type":"Unknown","date":"Unknown","pdfUrl":"https://www.fdic.gov/federal-register-publications/e-lawrence-anderson-rin-3064-ag20.pdf","summary":"New comment — summary pending review."}
+        ,
+            {"commenter":"Chainalysis, Jordan Wain","type":"Unknown","date":"Unknown","pdfUrl":"https://www.fdic.gov/federal-register-publications/chainalysis-jordan-wain-rin-3064-ag20.pdf","summary":"New comment — summary pending review."}
         ]
     },
 {

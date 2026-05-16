@@ -343,21 +343,22 @@
     "OCC-2025-0372-0166",
     "OCC-2025-0372-0180",
     "OCC-2025-0372-0161",
-    "OCC-2025-0372-0158"
+    "OCC-2025-0372-0158",
+    "FDIC-chainalysis-jordan-wain-rin-3064-ag20"
   ],
-  "lastChecked": "2026-05-15T19:04:00.503Z",
+  "lastChecked": "2026-05-16T01:13:00.625Z",
   "commentCounts": {
     "OCC-2025-0372": {
       "total": 250,
-      "checkedAt": "2026-05-15T19:03:59.181Z"
+      "checkedAt": "2026-05-16T01:12:59.633Z"
     },
     "NCUA-2025-1335": {
       "total": 40,
-      "checkedAt": "2026-05-15T19:03:59.790Z"
+      "checkedAt": "2026-05-16T01:12:59.776Z"
     },
     "FDIC-RIN-3064-AG20": {
-      "total": 16,
-      "checkedAt": "2026-05-15T19:04:00.503Z"
+      "total": 17,
+      "checkedAt": "2026-05-16T01:13:00.624Z"
     }
   }
 }
