@@ -31,7 +31,7 @@ const rulemakingsData = [
         "agency": "OCC, Federal Reserve, FDIC, NCUA (+ State regulators for State qualified issuers)",
         "deadline": "Consistent with Section 13 (1 year after enactment)",
         "implementation": "18 months after enactment OR 120 days after final regs issued (whichever is earlier)",
-        "notes": "Requirements must be tailored to business model and risk profile, cannot exceed requirements sufficient to ensure ongoing operations. OCC issued NPRM (Feb 25, 2026) via 12 CFR 3 — see separate entry. FDIC issued NPRM (Apr 10, 2026, RIN 3064-AG19) via 12 CFR Parts 324/330/350, comments due June 9, 2026 — see separate entry. Federal Reserve and NCUA have not yet issued proposed rules.",
+        "notes": "Requirements must be tailored to business model and risk profile, cannot exceed requirements sufficient to ensure ongoing operations. OCC issued NPRM (Feb 25, 2026) via 12 CFR 3 — see separate entry. FDIC issued NPRM (Apr 10, 2026, RIN 3064-AG19) via 12 CFR Parts 324/330/350, comments due June 9, 2026 — see separate entry. Federal Reserve has not yet issued proposed rules. NCUA has issued two NPRMs (Licensing Proposal, Feb 2026; Standards Proposal, May 2026).",
         "deadlineDate": "2026-07-18",
         "rulemakingType": "required",
         "paradigmCommentary": "",
@@ -788,6 +788,39 @@ const rulemakingsData = [
             {"commenter":"Comment from NATIONAL ASSOC OF STATE CREDIT UNION SUPERVISORS","type":"Unknown","date":"2026-04-14","commentId":"NCUA-2025-1335-0042","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0042","summary":"New comment — summary pending review."},
             {"commenter":"Comment from Value Technology Foundation","type":"Unknown","date":"2026-04-14","commentId":"NCUA-2025-1335-0043","url":"https://www.regulations.gov/comment/NCUA-2025-1335-0043","summary":"New comment — summary pending review."}
         ]
+    },
+{
+        "section": "5(a)(2)",
+        "requirement": "Standards for NCUA-licensed permitted payment stablecoin issuers",
+        "agency": "National Credit Union Administration (NCUA)",
+        "deadline": "Before the date described in Section 13 (before 1 year after enactment)",
+        "implementation": "Supplements the NCUA Licensing Proposal with detailed standards and requirements for NCUA-licensed PPSIs",
+        "notes": "NCUA supplemental proposed rule establishing standards for payment stablecoin issuance by FICU subsidiaries. Covers permitted/prohibited activities, reserve asset requirements, capital adequacy, custody standards, redemption rights, interest/yield prohibitions, share insurance coverage for tokenized shares, insider transaction limits, and BSA/AML compliance. Supplements the earlier NCUA Licensing Proposal (NCUA-2025-1335). Published 91 FR 28956.",
+        "deadlineDate": "2026-07-18",
+        "commentUrl": "https://www.federalregister.gov/documents/2026/05/18/2026-09915/implementing-the-guiding-and-establishing-national-innovation-for-us-stablecoins-act-for-the",
+        "commentDeadline": "2026-07-17",
+        "docketId": "NCUA-2026-1024",
+        "commentsPageUrl": "https://www.regulations.gov/docket/NCUA-2026-1024",
+        "rulemakingStages": {
+            "anprm": { "status": "skipped" },
+            "nprm": {
+                "status": "published",
+                "date": "2026-05-18",
+                "frDocNumber": "2026-09915",
+                "title": "Implementing the GENIUS Act for the Issuance of Stablecoins by Entities Subject to the Jurisdiction of the NCUA (Standards Proposal)"
+            },
+            "commentPeriod": {
+                "status": "open",
+                "startDate": "2026-05-18",
+                "endDate": "2026-07-17"
+            },
+            "finalRule": { "status": "not-started" },
+            "effective": { "status": "not-started" }
+        },
+        "rulemakingType": "required",
+        "paradigmCommentary": "",
+        "paradigmAttitude": "",
+        "submittedComments": []
     },
 {
         "section": "5(g)",
