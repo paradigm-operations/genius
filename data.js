@@ -469,6 +469,8 @@ const rulemakingsData = [
             {"commenter":"Anderson Area Chamber of Commerce","type":"Unknown","date":"2026-05-02","commentId":"OCC-2025-0372-0180","url":"https://www.regulations.gov/comment/OCC-2025-0372-0180","summary":"New comment — summary pending review."},
             {"commenter":"Larry Taylor","type":"Unknown","date":"2026-05-02","commentId":"OCC-2025-0372-0161","url":"https://www.regulations.gov/comment/OCC-2025-0372-0161","summary":"New comment — summary pending review."},
             {"commenter":"YEE! Technologies, LLC 2","type":"Unknown","date":"2026-05-02","commentId":"OCC-2025-0372-0158","url":"https://www.regulations.gov/comment/OCC-2025-0372-0158","summary":"New comment — summary pending review."}
+        ,
+            {"commenter":"VeloxVFX LLC","type":"Unknown","date":"2026-05-18","commentId":"OCC-2025-0372-0346","url":"https://www.regulations.gov/comment/OCC-2025-0372-0346","summary":"New comment — summary pending review."}
         ]
     },
 {
